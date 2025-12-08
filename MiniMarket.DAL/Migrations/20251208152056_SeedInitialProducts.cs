@@ -5,7 +5,7 @@
 namespace MiniMarket.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class rename_UtilisateurOrderToOrder : Migration
+    public partial class SeedInitialProducts : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

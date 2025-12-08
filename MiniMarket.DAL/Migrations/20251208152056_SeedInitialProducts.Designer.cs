@@ -12,8 +12,8 @@ using MiniMarket.DAL.Database;
 namespace MiniMarket.DAL.Migrations
 {
     [DbContext(typeof(MiniMarketContext))]
-    [Migration("20250622141558_init")]
-    partial class init
+    [Migration("20251208152056_SeedInitialProducts")]
+    partial class SeedInitialProducts
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,29 @@ namespace MiniMarket.DAL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("MiniMarket.Domain.Models.Order", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("OwnerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("Orders", (string)null);
+                });
 
             modelBuilder.Entity("MiniMarket.Domain.Models.OrderProduct", b =>
                 {
@@ -73,9 +96,23 @@ namespace MiniMarket.DAL.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
+                    b.Property<int>("Stock")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Products", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "This is a sample product description.",
+                            Discount = 10,
+                            Name = "iPhone 16",
+                            Price = 1299,
+                            Stock = 50
+                        });
                 });
 
             modelBuilder.Entity("MiniMarket.Domain.Models.Utilisateur", b =>
@@ -113,32 +150,20 @@ namespace MiniMarket.DAL.Migrations
                     b.ToTable("Utilisateurs", (string)null);
                 });
 
-            modelBuilder.Entity("MiniMarket.Domain.Models.UtilisateurOrder", b =>
+            modelBuilder.Entity("MiniMarket.Domain.Models.Order", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.HasOne("MiniMarket.Domain.Models.Utilisateur", "Owner")
+                        .WithMany("Orders")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("OwnerId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OwnerId");
-
-                    b.ToTable("Orders", (string)null);
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("MiniMarket.Domain.Models.OrderProduct", b =>
                 {
-                    b.HasOne("MiniMarket.Domain.Models.UtilisateurOrder", "Order")
+                    b.HasOne("MiniMarket.Domain.Models.Order", "Order")
                         .WithMany("Products")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -155,25 +180,14 @@ namespace MiniMarket.DAL.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("MiniMarket.Domain.Models.UtilisateurOrder", b =>
+            modelBuilder.Entity("MiniMarket.Domain.Models.Order", b =>
                 {
-                    b.HasOne("MiniMarket.Domain.Models.Utilisateur", "Owner")
-                        .WithMany("Orders")
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Owner");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("MiniMarket.Domain.Models.Utilisateur", b =>
                 {
                     b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("MiniMarket.Domain.Models.UtilisateurOrder", b =>
-                {
-                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

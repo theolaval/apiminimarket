@@ -62,6 +62,7 @@ namespace MiniMarket.BLL.Services
             existing.Name = entity.Name;
             existing.Price = entity.Price;
             existing.Discount = entity.Discount;
+            existing.Stock = entity.Stock;
             existing.Description = entity.Description;
 
             return _productRepository.Update(existing);

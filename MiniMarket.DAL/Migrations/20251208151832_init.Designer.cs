@@ -12,8 +12,8 @@ using MiniMarket.DAL.Database;
 namespace MiniMarket.DAL.Migrations
 {
     [DbContext(typeof(MiniMarketContext))]
-    [Migration("20250622160943_rename_UtilisateurOrder-To-Order")]
-    partial class rename_UtilisateurOrderToOrder
+    [Migration("20251208151832_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -96,9 +96,23 @@ namespace MiniMarket.DAL.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
+                    b.Property<int>("Stock")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Products", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "This is a sample product description.",
+                            Discount = 10,
+                            Name = "iPhone 16",
+                            Price = 1299,
+                            Stock = 50
+                        });
                 });
 
             modelBuilder.Entity("MiniMarket.Domain.Models.Utilisateur", b =>

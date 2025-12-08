@@ -31,6 +31,16 @@ namespace MiniMarket.DAL.Database.Configurations
 
             // Constraints
             builder.HasKey(p => p.Id);
+
+            builder.HasData(new Product
+            {
+                Id = 1,
+                Name = "iPhone 16",
+                Price = 1299,
+                Discount = 10,
+                Stock = 50,
+                Description = "This is a sample product description."
+            });
         }
     }
 }

@@ -21,7 +21,8 @@ namespace MiniMarket.BLL.Test.Services
                     Price = 42,
                     Name = "Test",
                     Description = "TestDescr",
-                    Discount = 5
+                    Discount = 5,
+                    Stock = 10
                 });
 
             // Arrange

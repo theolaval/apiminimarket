@@ -20,6 +20,7 @@ namespace MiniMarket.DAL.Migrations
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
                     Discount = table.Column<int>(type: "int", nullable: false),
+                    Stock = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false)
                 },
                 constraints: table =>
@@ -90,6 +91,11 @@ namespace MiniMarket.DAL.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "Description", "Discount", "Name", "Price", "Stock" },
+                values: new object[] { 1, "This is a sample product description.", 10, "iPhone 16", 1299, 50 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderProduct_ProductId",

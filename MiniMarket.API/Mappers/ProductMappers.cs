@@ -12,6 +12,7 @@ namespace MiniMarket.API.Mappers
                 Id = p.Id,
                 Name = p.Name,
                 Price = p.Price,
+                Stock = p.Stock,
                 Discount = p.Discount,
             };
         }
@@ -24,6 +25,7 @@ namespace MiniMarket.API.Mappers
                 Name = p.Name,
                 Price = p.Price,
                 Discount = p.Discount,
+                Stock = p.Stock,
                 Description = p.Description
             };
         }
@@ -35,6 +37,7 @@ namespace MiniMarket.API.Mappers
                 Name = dto.Name,
                 Price = dto.Price,
                 Discount = dto.Discount,
+                Stock = dto.Stock,
                 Description = dto.Description
             };
         }

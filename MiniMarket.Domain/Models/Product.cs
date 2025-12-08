@@ -6,6 +6,7 @@
         public required string Name { get; set; }
         public required int Price { get; set; }
         public required int Discount { get; set; }
+        public required int Stock { get; set; } = 0;
         public required string Description { get; set; }
     }
 }

@@ -21,7 +21,8 @@ namespace MiniMarket.API.Test.Controllers
                             Price=42,
                             Name="Test",
                             Description="TestDescr",
-                            Discount=5
+                            Stock=10,
+                            Discount =5
                         });
 
             // Arrange
@@ -40,6 +41,7 @@ namespace MiniMarket.API.Test.Controllers
             Assert.Equal(42, responseValue.Price);
             Assert.Equal("Test", responseValue.Name);
             Assert.Equal("TestDescr", responseValue.Description);
+            Assert.Equal(10, responseValue.Stock);
             Assert.Equal(5, responseValue.Discount);
         }
         
